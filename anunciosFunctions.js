@@ -1,4 +1,4 @@
-const { tb_AnuncioWebmotors } = require('./');
+const { tb_AnuncioWebmotors } = require('./models');
 
 const getAds = async () => {
   const ads = await tb_AnuncioWebmotors.findAll();

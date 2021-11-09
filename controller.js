@@ -1,4 +1,4 @@
-const anunciosFunctions =  require('./models/anunciosFunctions');
+const anunciosFunctions =  require('./anunciosFunctions');
 
 const HTTP_OK_STATUS = 200;
 const HTTP_CREATED_STATUS = 201;
@@ -56,8 +56,9 @@ const deleteById = async (req, res) => {
 };
 
 const renderPage = async (_req, res) => {
-  const ads = await await anunciosFunctions.getAds();
-  res.status(200).render('interface', { ads });
+  // const ads = await await anunciosFunctions.getAds();
+  // res.status(200).render('interface', { ads });
+  res.status(200).render('interface');
 };
 
 module.exports = {
