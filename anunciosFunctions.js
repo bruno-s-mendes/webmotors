@@ -21,7 +21,7 @@ const updateById = async (receivedId, adContent) => {
   
   await tb_AnuncioWebmotors.update(
     { marca, modelo, versao, ano, quilometragem, observacao },
-    { where: { ID: receivedId } },
+    { where: { id: receivedId } },
   );
 
   return { marca, modelo, versao, ano, quilometragem, observacao };

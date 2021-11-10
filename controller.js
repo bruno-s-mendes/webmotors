@@ -58,7 +58,6 @@ const deleteById = async (req, res) => {
 const renderPage = async (_req, res) => {
   const ads = await await anunciosFunctions.getAds();
   res.status(200).render('interface', { ads });
-  // res.status(200).render('interface');
 };
 
 module.exports = {
