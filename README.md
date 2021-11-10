@@ -89,16 +89,19 @@ Desenvolver um front-end simples para listar, adicionar e editar anuncios
   Para o desnvolvimento deste projeto, eu iniciaei a aplicação Back-end inicializando um banco de dados. Para utilizar o SQL com o nodeJs, eu utlizei o Sequelize, que é uma ferramenta que auxilia na consulta ao banco de dados.
   Após feita a inicialização do banco de dados, eu defini quais seriam os end-points da aplicação, que são os seguintes:
   
-  GET "/" - renderiza a view;
-  GET "/ads" - retorna um objeto JSON com a lista de anúncios cadastrados no banco;
-  POST "/ads" - adiciona um anuncio no banco de dados;
-  PUT "/ads/id" - realiza o update do anuncio com o id fornecido no banco de dados;
-  DELETE "/ads/id" - realiza a remoção do anuncio com i id firnecido no banco de dados;
+  #### GET "/" - renderiza a view;
+  #### GET "/ads" - retorna um objeto JSON com a lista de anúncios cadastrados no banco;
+  #### POST "/ads" - adiciona um anuncio no banco de dados;
+  #### PUT "/ads/id" - realiza o update do anuncio com o id fornecido no banco de dados;
+  #### DELETE "/ads/id" - realiza a remoção do anuncio com i id firnecido no banco de dados;
   
   Apos definidas as rotas e implementadas as lógicas eu desenvolvi a View com a ferramenta EJS, onde consigo adiiconar um anuncio, deletar um anuncio e listar todos os anuncios;
   
+  Apos desenvolvida a View, realizei os testes da aplicação, co cobertura de 75%.
+  
 # Próximos passos
-  O próximo passo é a implementação de uma maneira de realizar o update pela interface;;
+  O próximo passo é a implementação de uma maneira de realizar o update pela interface e Verificar o Bug no código de update;
+  Realizar os testes das funções do banco de dados;
   
 # O que eu faria diferente
   Eu desenvolveria a aplicação front-end utilizando React ou outra ferramenta especifica de front-end, pois a renderizaçaõ como ejs ficou muito complexa, utilizando React, ficaria mais legivel o código e seria mais fácil de realizar a implementação de todas as funcuonalidades;
