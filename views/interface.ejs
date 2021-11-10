@@ -8,5 +8,145 @@
 </head>
 <body>
   <h1>Bem vindo a webmotors</h1>
+  <main>
+    <div class="add-vehicle">
+      <h2>Adicionar novo veiculor</h2>
+      <form id="add-form">
+        <label for="marca">Marca</label>
+        <select name="marca" id="marca-add">
+        <option>select</option>
+          </select
+        <label for="modelo">modelo</label>
+        <select name="modelo" id="modelo-add"></select
+        <label for="versao">versao</label>
+        <select name="versao" id="versao-add"></select
+        <label for="ano">ano</label>
+        <input type="number" name="ano" >
+        <label for="quilometragem">quilometragem</label>
+        <input type="number" name="quilometragem">
+        <label for="observacao">observacao</label>
+        <input name="observacao">
+        <button id="add-btn" type="submit">Adicionar</button>
+      </form>
+    </div>
+    <div>
+      <h2>veiculos</h2>
+      <div class="vehicle-list">
+        <% if(ads) {
+          ads.forEach(({ id, marca, modelo, versao, ano, quilometragem, observacao }, index) => {%>
+            <div class="vehicle-card">
+              <label for="marca">Marca</label>
+              <input name="marca" value=<%=`${marca}`%> >
+              <label for="modelo">modelo</label>
+              <input name="modelo" value=<%=`${modelo}`%> key=<%=`${id}`%>>
+              <label for="versao">versao</label>
+              <input name="versao" value=<%=`${versao}`%>>
+              <label for="ano">ano</label>
+              <input name="ano" value=<%=`${ano}`%>>
+              <label for="quilometragem">quilometragem</label>
+              <input name="quilometragem" value=<%=`${quilometragem}`%>>
+              <label for="observacao">observacao</label>
+              <input name="observacao" value=<%=`${observacao}`%>>
+              <button class="editBtn" value=<%=`${id}`%>>Edit</button>
+              <button class="deleteBtn" value=<%=`${id}`%>>Remove</button>
+            </div>
+        <% });}; %>
+      </div>
+    </div>
+  </main>
+  <script>
+    const deleteBtnList = document.querySelectorAll('.deleteBtn');
+    const editBtnList = document.querySelectorAll('.editBtn');
+    const marcainput = document.querySelector('#marca-add');
+    const modeloInput = document.querySelector('#modelo-add');
+    const versaoInput = document.querySelector('#versao-add');
+    const addBtn = document.querySelector('#add-btn');
+    const addform = document.querySelector('#add-form');
+    
+
+    const makeLog = () => {
+      fetch('https://desafioonline.webmotors.com.br/api/OnlineChallenge/Make')
+      .then(response => response.json())
+      .then(data => {
+        data.map((item) =>{
+          const make = document.createElement('option');
+          make.value=item.ID;
+          make.innerHTML = item.Name;
+          marcainput.appendChild(make);
+        })
+      })
+    }
+
+    marcainput.addEventListener('change', (event) => {
+      if(modeloInput.hasChildNodes()) {
+        modeloInput.childNodes.forEach((child) => modeloInput.removeChild(child))
+      }
+      if(versaoInput.hasChildNodes()) {
+        versaoInput.childNodes.forEach((child) => versaoInput.removeChild(child))
+      }
+      fetch(`https://desafioonline.webmotors.com.br/api/OnlineChallenge/Model?MakeID=${event.target.value}`)
+      .then(response => response.json())
+      .then(data => {
+        data.map((item) =>{
+          const model = document.createElement('option');
+          model.value=item.ID;
+          model.innerHTML = item.Name;
+          modeloInput.appendChild(model);
+        })
+      })
+    })
+
+    modeloInput.addEventListener('change', (event) => {
+      if(versaoInput.hasChildNodes()) {
+        versaoInput.childNodes.forEach((child) => versaoInput.removeChild(child))
+      }
+      fetch(`https://desafioonline.webmotors.com.br/api/OnlineChallenge/Version?ModelID=${event.target.value}`)
+      .then(response => response.json())
+      .then(data => {
+        data.map((item) =>{
+          const version = document.createElement('option');
+          version.value=item.ID;
+          version.innerText= item.Name;
+          versaoInput.appendChild(version);
+        })
+      })
+    })
+
+    addBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        "marca": addform.marca.value,
+        "modelo": addform.modelo.value,
+        "versao": addform.versao.value,
+        "ano": addform.ano.value,
+        "quilometragem": addform.quilometragem.value,
+        "observacao": addform.observacao.value,
+      }),
+    }
+    fetch('http://localhost:3000/ads', requestOptions);
+    location.reload();
+    });
+
+    deleteBtnList.forEach((button) => button.addEventListener('click', (event) => {
+      const id = event.target.value;
+      const requestOptions = {
+      method: 'DELETE',
+    }
+    fetch(`http://localhost:3000/ads/${id}`, requestOptions);
+    location.reload();
+    }));
+
+    editBtnList.forEach((button) => button.addEventListener('click', (event) => {
+      const id = event.target.value;
+      console.log(id);
+    }));
+
+    window.onload = (() => {
+      makeLog()
+    });
+  </script>
 </body>
 </html>

@@ -9,9 +9,11 @@ const getAds = async () => {
 const insertAd = async (adContent) => {
   const { marca, modelo, versao, ano, quilometragem, observacao } = adContent;
 
-  await tb_AnuncioWebmotors.create({ marca, modelo, versao, ano, quilometragem, observacao });
+  console.log(adContent);
 
-  return { marca, modelo, versao, ano, quilometragem, observacao };
+  const newVehicle = await tb_AnuncioWebmotors.create({ marca, modelo, versao, ano, quilometragem, observacao });
+
+  return newVehicle.dataValues;
 };
 
 const updateById = async (receivedId, adContent) => {
